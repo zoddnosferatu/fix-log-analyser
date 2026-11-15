@@ -1,46 +1,55 @@
-an educational python tool for analysing simulated FIX.4.4-style
-log excerpts and producing structured CSV reports.
 
-## Features
+# fix log analyser
 
-- Parses tag-value records using pipe or SOH delimiters.
-- Maps selected message types, execution types, and order statuses.
-- Tracks observed sequence numbers separately by sender and target.
-- Flags sequence gaps and low-sequence records.
-- Extracts order-rejection reports.
-- Exports message and exception CSV files.
+a small python tool for reading simulated fix-style logs and
+exporting message details and exceptions to csv.
 
-## Run
+## what it does
 
+• parses tag-value messages separated by pipes or soh characters.
+• extracts order ids, symbols, execution types, and order statuses.
+• checks sequence numbers separately for each sender/target pair.
+• flags missing sequences, low-sequence records, and malformed input.
+• extracts rejected-order execution reports.
+
+## run
+
+requires python 3. no external packages are needed.
 python parser.py sample_logs.txt
+the script creates two files:
+• reports/messages.csv
+• reports/exceptions.csv
 
-## Outputs
+## sample data
 
-- reports/messages.csv
-- reports/exceptions.csv
+the input contains simulated heartbeats, a new order,
+an acknowledgement, partial and full fills, and a rejected order.
+it also includes:
+• a missing sequence number.
+• a repeated rejection report.
+• a non-numeric sequence number.
+the original sample produces 9 parsed messages and 5 exception
+records. the repeated rejection is counted twice because the
+script reports individual records rather than unique orders.
 
-## Assumptions and limitations
+## limitations
 
-- All input is synthetic.
-- Samples are simplified log excerpts, not wire-valid FIX messages.
-- One continuous session capture is assumed.
-- The first observed sequence establishes the baseline per direction.
-- Session identity is simplified to sender and target.
-- No BodyLength or CheckSum validation.
-- No session establishment, retransmission, or sequence-reset handling.
-- No repeating-group support.
-- No complete FIX dictionary validation.
-- No persistent order-state reconstruction.
-- No deduplication of execution reports.
-- No broker, exchange, or live trading connectivity.
+this is an offline learning project, not a fix engine.
+the sample messages are simplified log excerpts, not complete
+wire-valid fix messages. the parser does not validate bodylength
+or checksum, process repeating groups, handle session recovery,
+or reconstruct order state.
+sequence checks assume one continuous session capture, with
+sender and target identifying each direction. the first observed
+message establishes the baseline.
+a sequence gap means records are missing from the observed log.
+it does not establish whether the cause was a logging issue,
+an incomplete capture, or something else.
 
-A sequence gap means records are absent from the observed stream.
-It does not establish why they are absent.
+## possible improvements
 
-This is an offline learning project, not a production FIX engine.
-
-## Development
-
-Record the assistance used, the changes personally made,
-and the tests actually performed. Do not claim independent
-authorship or production use unless accurate.
+• add automated tests.
+• validate numeric order fields.
+• deduplicate execution reports.
+• support more complete session identification.
+• add bodylength and checksum validation.
