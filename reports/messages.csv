@@ -1,0 +1,10 @@
+line,sender,target,sequence,message_type,client_order_id,order_id,symbol,order_status,execution_type,order_qty,cum_qty,leaves_qty,text
+4,DEMO_CLIENT,DEMO_BROKER,1,Heartbeat,,,,,,,,,
+5,DEMO_BROKER,DEMO_CLIENT,1,Heartbeat,,,,,,,,,
+8,DEMO_CLIENT,DEMO_BROKER,2,NewOrderSingle,C001,,DEMO,,,100,,,
+11,DEMO_BROKER,DEMO_CLIENT,2,ExecutionReport,C001,B001,DEMO,New,New,100,0,100,
+14,DEMO_BROKER,DEMO_CLIENT,3,ExecutionReport,C001,B001,DEMO,PartiallyFilled,Trade,100,40,60,
+17,DEMO_BROKER,DEMO_CLIENT,5,ExecutionReport,C001,B001,DEMO,Filled,Trade,100,100,0,
+20,DEMO_CLIENT,DEMO_BROKER,3,NewOrderSingle,C002,,DEMO,,,500,,,
+21,DEMO_BROKER,DEMO_CLIENT,6,ExecutionReport,C002,B002,DEMO,Rejected,Rejected,500,0,0,Simulated order rejected by broker
+24,DEMO_BROKER,DEMO_CLIENT,6,ExecutionReport,C002,B002,DEMO,Rejected,Rejected,500,0,0,Simulated order rejected by broker

@@ -1,0 +1,6 @@
+line,category,sender,target,sequence,client_order_id,details
+17,SEQUENCE_GAP,DEMO_BROKER,DEMO_CLIENT,5,C001,Expected 4; observed 5. Missing in capture: 4-4.
+21,ORDER_REJECTION,DEMO_BROKER,DEMO_CLIENT,6,C002,Simulated order rejected by broker
+24,LOW_SEQUENCE,DEMO_BROKER,DEMO_CLIENT,6,C002,"Expected at least 7; observed 6. Possible duplicate, replay, or out-of-order record; PossDupFlag=Y."
+24,ORDER_REJECTION,DEMO_BROKER,DEMO_CLIENT,6,C002,Simulated order rejected by broker
+27,PARSE_ERROR,,,,,MsgSeqNum(34) must be an integer

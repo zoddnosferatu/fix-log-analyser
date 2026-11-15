@@ -1,0 +1,27 @@
+# Simulated FIX.4.4-style log excerpts; not wire-valid messages.
+
+# Client and broker sequence streams are independent.
+8=FIX.4.4|35=0|34=1|49=DEMO_CLIENT|56=DEMO_BROKER|
+8=FIX.4.4|35=0|34=1|49=DEMO_BROKER|56=DEMO_CLIENT|
+
+# New limit order.
+8=FIX.4.4|35=D|34=2|49=DEMO_CLIENT|56=DEMO_BROKER|11=C001|55=DEMO|54=1|38=100|40=2|44=50.00|
+
+# Broker acknowledges the order.
+8=FIX.4.4|35=8|34=2|49=DEMO_BROKER|56=DEMO_CLIENT|11=C001|37=B001|17=E001|55=DEMO|150=0|39=0|38=100|14=0|151=100|
+
+# Legitimate partial fill: not an error.
+8=FIX.4.4|35=8|34=3|49=DEMO_BROKER|56=DEMO_CLIENT|11=C001|37=B001|17=E002|55=DEMO|150=F|39=1|38=100|14=40|151=60|32=40|31=50.00|
+
+# Sequence 4 is absent from this captured broker stream.
+8=FIX.4.4|35=8|34=5|49=DEMO_BROKER|56=DEMO_CLIENT|11=C001|37=B001|17=E003|55=DEMO|150=F|39=2|38=100|14=100|151=0|32=60|31=50.00|
+
+# A separate order is rejected.
+8=FIX.4.4|35=D|34=3|49=DEMO_CLIENT|56=DEMO_BROKER|11=C002|55=DEMO|54=1|38=500|40=2|44=49.00|
+8=FIX.4.4|35=8|34=6|49=DEMO_BROKER|56=DEMO_CLIENT|11=C002|37=B002|17=E004|55=DEMO|150=8|39=8|38=500|14=0|151=0|58=Simulated order rejected by broker|
+
+# Duplicate/replayed log record requiring investigation.
+8=FIX.4.4|35=8|34=6|43=Y|49=DEMO_BROKER|56=DEMO_CLIENT|11=C002|37=B002|17=E004|55=DEMO|150=8|39=8|38=500|14=0|151=0|58=Simulated order rejected by broker|
+
+# Deliberately malformed sequence number.
+8=FIX.4.4|35=0|34=ABC|49=DEMO_CLIENT|56=DEMO_BROKER|
